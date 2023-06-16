@@ -876,7 +876,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": false,
-      "title": "Row title",
+      "title": "Overview",
       "titleSize": "h6"
     },
     {
@@ -1107,7 +1107,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": false,
-      "title": "Row title",
+      "title": "Requests & Cache Hits",
       "titleSize": "h6"
     },
     {
@@ -1377,7 +1377,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": false,
-      "title": "Row title",
+      "title": "Network & Cache Usage",
       "titleSize": "h6"
     }
   ],
@@ -1427,7 +1427,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
