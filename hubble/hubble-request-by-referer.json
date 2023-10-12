@@ -1,0 +1,561 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "shows requests aggregated by referer.  Can be used to isolate request to a site",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 27,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "sum by (http_referer)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code = `200` [$__interval])) ",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Requests",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Line"
+              ],
+              "reducer": "distinctCount"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "sum by (http_referer)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code != `200` [$__interval])) ",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Non Success Requests",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Line"
+              ],
+              "reducer": "distinctCount"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "panels": [],
+      "repeat": "site",
+      "repeatDirection": "h",
+      "title": "${site}",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 7,
+        "x": 0,
+        "y": 9
+      },
+      "id": 1,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 10,
+          "valueSize": 10
+        }
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "sum by (http_referer_path)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code = `200` |~ \"${site}\" [$__range])) ",
+          "key": "Q-7bb92e77-2182-40df-8e66-8dd3794954ac-0",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Pages with Success",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 8,
+        "x": 7,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 10,
+          "valueSize": 10
+        }
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "sum by (http_referer_path)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code != `200` |~ \"${site}\" [$__range])) ",
+          "key": "Q-7bb92e77-2182-40df-8e66-8dd3794954ac-0",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Pages with Fail",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 9,
+        "x": 15,
+        "y": 9
+      },
+      "id": 11,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "sum by (path)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code != `200` |~ \"${site}\" [$__range])) ",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Failed Image",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 4,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "{app=\"nginx-ingress-controller\"} \n    != `GET /images/healthcheck` \n    | pattern `<ip> - - [<date>] \"<_> <request> <_>\" <status> <size> \"<referer>\" \"<agent>\" <_>`  | status != \"200\"\n    |~ \"${site}\" ",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Failed Logs",
+      "type": "logs"
+    }
+  ],
+  "refresh": "10s",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [],
+          "value": []
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Site",
+        "multi": true,
+        "name": "site",
+        "options": [
+          {
+            "selected": false,
+            "text": "www.homebase.co.uk",
+            "value": "www.homebase.co.uk"
+          },
+          {
+            "selected": false,
+            "text": "www.movementumuk.com",
+            "value": "www.movementumuk.com"
+          },
+          {
+            "selected": false,
+            "text": "www.myprotein.com",
+            "value": "www.myprotein.com"
+          },
+          {
+            "selected": false,
+            "text": "checkout.myprotein.com",
+            "value": "checkout.myprotein.com"
+          },
+          {
+            "selected": false,
+            "text": "www.zavvi.com",
+            "value": "www.zavvi.com"
+          }
+        ],
+        "query": "www.homebase.co.uk, www.movementumuk.com, www.myprotein.com, checkout.myprotein.com, www.zavvi.com",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Request by Referer",
+  "uid": "HEAuZ0MIz",
+  "version": 4,
+  "weekStart": ""
+}
