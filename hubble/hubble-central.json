@@ -579,6 +579,17 @@
           "legendFormat": "99%",
           "range": true,
           "refId": "C"
+        },
+        {
+          "datasource": {
+            "uid": "$Datasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(\n  1,\n  sum by (le)(\n    rate(\n      fastly_io_response_time_bucket[5m]\n    )\n  )\n)",
+          "hide": false,
+          "legendFormat": "100%",
+          "range": true,
+          "refId": "D"
         }
       ],
       "title": "Fastly IO Latency Percentiles",
