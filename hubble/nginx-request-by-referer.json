@@ -25,6 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -112,7 +113,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum by (http_referer)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code = `200` [$__interval])) ",
+          "expr": "sum by (http_referer)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"([a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)|-)` | status_code = `200` [$__interval])) ",
           "queryType": "range",
           "refId": "A"
         }
@@ -218,7 +219,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum by (http_referer)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"[a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)` | status_code != \"200\" and status_code != \"204\" [$__interval])) ",
+          "expr": "sum by (http_referer)(count_over_time({app=\"nginx-ingress-controller\"} != `GET /images/healthcheck` | regexp `(?P<remote_addr>((?:[0-9]{1,3}\\.){3}[0-9]{1,3})) (?P<dash>\\S+) (?P<remote_user>\\S+) \\[(?P<time_local>[\\w:\\/]+\\s[+|-]\\d{4})\\] \\\"(?P<request>\\S+)\\s?(?P<path>\\S+)?\\s?(?P<protocol>\\S+)?\\\" (?P<status_code>\\d{3}|-) (?P<body_bytes_sent>\\d+|-)\\s?\\\"([a-z]*://(?P<http_referer>[^\\/]*)(?P<http_referer_path>[^\\\"]*)|-)` | status_code != \"200\" and status_code != \"204\" [$__interval])) ",
           "queryType": "range",
           "refId": "A"
         }
