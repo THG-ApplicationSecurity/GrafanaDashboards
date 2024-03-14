@@ -1281,6 +1281,9 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "uid": "$Datasource"
+        },
         "definition": "label_values(certmanager_certificate_expiration_timestamp_seconds{exported_namespace=~\"$Namespace\"},name) ",
         "hide": 0,
         "includeAll": true,
